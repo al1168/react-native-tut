@@ -1,23 +1,39 @@
-import { Image, StyleSheet, Platform, View, Text } from 'react-native';
+import { View, Text, ImageBackground } from 'react-native';
+import React from 'react';
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+import beachImage from "@/assets/meditation-images/beach.webp";
+import { LinearGradient } from 'expo-linear-gradient';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { StatusBar } from 'expo-status-bar';
+import CustomButton from '@/components/CustomButton';
 
-export default function HomeScreen() {
+const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>Hello World</Text>
+    <View className='flex-1 bg-white'>
+      <ImageBackground
+          source={beachImage}
+          resizeMode="cover"
+          className='flex-1'>
+        <LinearGradient
+          className='flex-1'
+          colors={["rgba(0,0,0,0.4)", "rgba(0,0,0,0.8)"]}
+          >
+            <SafeAreaView className='flex-1 justify-between mx-5 my-12'>
+              <View>
+                <Text className="text-center text-white font-bold text-4xl"> Simple Meditation </Text>
+                <Text className='flex-center text-white text-center text text-2xl mt-3'>
+                  Simplifying Medidation for everyone
+                </Text>
+              </View>
+              <View>
+                <CustomButton title='Get started' onPress={()=> console.log('tap')} />
+              </View>
+            <StatusBar style= "light"/>
+            </SafeAreaView>
+        </LinearGradient>
+      </ImageBackground>
     </View>
-  );
+  )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    alignItems:"center",
-    backgroundColor:"yellow",
-    flex: 1,
-    justifyContent:"center",
-  }
-});
+export default App

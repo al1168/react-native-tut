@@ -1,10 +1,10 @@
 export interface AffirmationCategory {
-    title: string;
-    data: GalleryPreviewData[];
+  title: string;
+  data: GalleryPreviewData[];
 }
 
-export interface GalleryPreviewData{
-    id: number;
-    text: string;
-    image: any;
+export interface GalleryPreviewData {
+  id: number;
+  text: string;
+  image: any;
 }

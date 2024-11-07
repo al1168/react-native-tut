@@ -22,7 +22,7 @@ const AffirmationPractice = () => {
     for (let idx = 0; idx < AFFIRMATION_GALLERY.length; idx++) {
       const affirmationData = AFFIRMATION_GALLERY[idx].data;
       const affirmationToStart = affirmationData.find(
-        (a) => a.id === Number(itemId)
+        (a) => a.id === Number(itemId),
       );
       if (affirmationToStart) {
         setAffirmation(affirmationToStart);

@@ -2,14 +2,14 @@ import { View, Text } from 'react-native'
 import React from 'react'
 import { Stack } from 'expo-router'
 
-const NatureMeditateLayout = () => {
+const MeditationLayout = () => {
   return (
     <Stack>
         <Stack.Screen name='index' options={{headerShown:false}}/>
-        {/* <Stack.Screen name='[itemId]' options={{headerShown:false}}/> */}
+        <Stack.Screen name='[id]' options={{headerShown:false}}/>
 
     </Stack>
   )
 }
 
-export default NatureMeditateLayout
+export default MeditationLayout

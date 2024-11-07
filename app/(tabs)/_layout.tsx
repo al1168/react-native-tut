@@ -10,8 +10,8 @@ const TabsLayout = () => {
         headerShown:false,
         tabBarActiveTintColor: Colors.primary,
     }}>
-        <Tabs.Screen name="nature-meditate" options={{
-            tabBarLabel: "nature-meditate",
+        <Tabs.Screen name="Meditation" options={{
+            tabBarLabel: "Meditation",
             tabBarIcon: ({color}) =>
             <MaterialCommunityIcons name="flower-tulip" size={24} color={color} />
             }}/>

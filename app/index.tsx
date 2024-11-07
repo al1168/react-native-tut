@@ -2,7 +2,6 @@ import { View, Text, ImageBackground } from 'react-native';
 import React from 'react';
 
 import beachImage from "@/assets/meditation-images/beach.webp";
-import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import CustomButton from '@/components/CustomButton';
@@ -27,7 +26,7 @@ const App = () => {
                   </Text>
                 </View>
                 <View>
-                  <CustomButton title='Get started' onPress={()=> router.push("/nature-meditate")} />
+                  <CustomButton title='Get started' onPress={()=> router.push("/Meditation")} />
                 </View>
               <StatusBar style= "light"/>
               </SafeAreaView>

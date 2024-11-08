@@ -15,13 +15,14 @@ const GuidedAffirmationsGallery = ({
   return (
     <View className="my-5">
       <View className="mb-2">
-        <Text className="text-white self-center font-bold">{title}</Text>
+        <Text className="text-white font-bold">{title}</Text>
       </View>
       <View>
         <FlatList
           data={previews}
           showsHorizontalScrollIndicator={false}
           keyExtractor={(item) => item.id.toString()}
+
           renderItem={({ item }) => (
             <Link
               href={`/affirmations/${item.id}` as Href<string | object>}

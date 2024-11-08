@@ -12,6 +12,8 @@ import AppGradient from "@/components/AppGradient";
 import CustomButton from "@/components/CustomButton";
 import { useEffect, useState } from "react";
 import HoldableButton from "@/components/HoldableButton";
+import { Audio } from "expo-av";
+import { MEDITATION_DATA, AUDIO_FILES } from "@/constants/meditation-data";
 
 const Meditate = () => {
   const SECONDS_IN_A_MINUTE = 60;
@@ -20,8 +22,13 @@ const Meditate = () => {
   const { width } = useWindowDimensions();
   const buttonWidth = width / 3;
   const [isMeditating, setMeditating] = useState<boolean>(false);
-  const startTime = () => {
+  const [audioSound, setSound] = useState<Audio.Sound>();
+  const [isPlayingAudio, setPlayingAudio] = useState<boolean>(false);
+  // const { duration: secondsRemaining, setDuration } =
+  //       useContext(TimerContext);
+  const toggleMeditating = async () => {
     setMeditating(!isMeditating);
+    await toggleSound();
   };
   const transformSecondsToTime = (seconds: number) => {
     const minutes = Math.floor(seconds / SECONDS_IN_A_MINUTE);
@@ -31,12 +38,29 @@ const Meditate = () => {
 
     return `${paddedMinutes}:${paddedSeconds}`;
   };
-
+  const initalizedSound = async () => {
+    const audioFileName = MEDITATION_DATA[Number(id) - 1].audio;
+    const { sound } = await Audio.Sound.createAsync(AUDIO_FILES[audioFileName]);
+    setSound(sound);
+    return sound;
+  };
+  const toggleSound = async () => {
+    const sound = audioSound ? audioSound : await initalizedSound();
+    const status = await sound?.getStatusAsync();
+    if (status?.isLoaded && !isPlayingAudio) {
+      await sound.playAsync();
+      setPlayingAudio(true);
+    } else {
+      await sound.pauseAsync();
+      setPlayingAudio(false);
+    }
+  };
   useEffect(() => {
     let timerId: NodeJS.Timeout;
 
-    if (timeRemaining === 0) {
+    if (timeRemaining === 0 && isMeditating) {
       setMeditating(false);
+      toggleSound();
       return;
     }
 
@@ -49,6 +73,13 @@ const Meditate = () => {
       clearTimeout(timerId);
     };
   }, [timeRemaining, isMeditating]);
+
+  // handles
+  useEffect(() => {
+    return () => {
+      audioSound?.unloadAsync();
+    };
+  }, [audioSound]);
 
   return (
     <View className="flex-1">
@@ -63,7 +94,7 @@ const Meditate = () => {
           </Pressable>
           <View className="flex-1 justify-center">
             <View className="bg-neutral-100 mx-auto rounded-full w-44 h-44 justify-center items-center">
-              <Text className="text-blue-400 font-bold text-4xl">
+              <Text className="text-blue-400 font-bold text-4xl font-tmono">
                 {transformSecondsToTime(timeRemaining)}
               </Text>
             </View>
@@ -72,7 +103,7 @@ const Meditate = () => {
             <CustomButton
               containerStyles="mx-auto"
               title={isMeditating ? "Stop" : "Start"}
-              onPress={startTime}
+              onPress={toggleMeditating}
               style={{ width: buttonWidth }}
             />
             <HoldableButton

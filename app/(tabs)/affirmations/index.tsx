@@ -13,7 +13,7 @@ const Affirmations = () => {
             Change your beliefs with affirmations{" "}
           </Text>
         </ScrollView>
-        <View>
+        <View className="2">
           {AFFIRMATION_GALLERY.map((g) => (
             <GuidedAffirmationsGallery
               key={g.title}
